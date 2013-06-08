@@ -2,10 +2,10 @@
 *.pot
 *.pyc
 local_settings.py
-*.json*
 *.db
 
 .idea
 build
 *egg-info
 setup.py
+jk*.json
