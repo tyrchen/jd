@@ -4,6 +4,7 @@
 	"author": "Tyr Chen",
 	"dependencies": {
 		"restify": "",
-		"mongojs": ""
+		"mongojs": "",
+		"lodash": ""
 	}
 }

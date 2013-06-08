@@ -1,5 +1,8 @@
 restify = require 'restify'
 mongojs = require 'mongojs'
+_ = require 'lodash'
+
+
 db = mongojs 'directory'
 employees = db.collection 'employees'
 items_per_page = 40
@@ -12,7 +15,6 @@ server.use restify.queryParser()
 server.get '/', (req, res, next) ->
 	res.send
 		status: 1
-	next()
 
 server.get '/employees.json', (req, res, next) ->
 	employees.find().count (err, count) ->
@@ -32,16 +34,12 @@ server.get '/employees.json', (req, res, next) ->
 				data.items = docs
 			res.send data 
 
-	next()
-
 server.get '/employees/:name', (req, res, next) ->
     uid = req.params.name.replace '.json', ''
 
     options = _id: 0
     employees.findOne {uid: uid}, options, (err, doc) ->
         res.send doc
-
-    next()
 
 server.get '/groups/:name', (req, res, next) ->
     uid = req.params.name.replace '.json', ''
@@ -59,8 +57,6 @@ server.get '/groups/:name', (req, res, next) ->
                 data.members = docs
             res.send data
 
-    next()
-
 server.get '/search.json', (req, res, next) ->
     term = new RegExp req.params.term
     options = _id: 0
@@ -68,6 +64,13 @@ server.get '/search.json', (req, res, next) ->
 
     employees.find query, options, (err, docs) ->
         res.send docs
+
+server.get '/snapshots.json', (req, res, next) ->
+    # this API doesn't work till now
+    db.getCollectionNames (err, names) ->
+        data = _.map _.without(names, 'directory'), (item) -> item.replace('snapshot')
+
+        res.send data
 
 server.listen 6080, ->
     console.log 'ready on %s', server.url
