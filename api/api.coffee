@@ -61,5 +61,13 @@ server.get '/groups/:name', (req, res, next) ->
 
     next()
 
+server.get '/search.json', (req, res, next) ->
+    term = new RegExp req.params.term
+    options = _id: 0
+    query = "$or": [{uid: term}, {preferred_name: term}, {cube: term}, {extension: term}, {mobile: term}, {phone: term}]
+
+    employees.find query, options, (err, docs) ->
+        res.send docs
+
 server.listen 6080, ->
     console.log 'ready on %s', server.url
