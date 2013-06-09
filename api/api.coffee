@@ -58,7 +58,11 @@ server.get '/groups/:name', (req, res, next) ->
             res.send data
 
 server.get '/search.json', (req, res, next) ->
-    term = new RegExp req.params.term
+    t = req.params.term.trim()
+    if not t
+        res.send []
+
+    term = new RegExp t
     options = _id: 0
     query = "$or": [{uid: term}, {preferred_name: term}, {cube: term}, {extension: term}, {mobile: term}, {phone: term}]
 

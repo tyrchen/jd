@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Juniper Employee Directory",
+  "description": "This is a more clean and easy to use employee directory.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "https://employee-api.jcnrd.us/",
+    "https://*/",
+    "http://*/"
+  ]
+}

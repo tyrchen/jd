@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Juniper Employee Directory</title>
+        <link href="bootstrap.min.css" type="text/css" rel="stylesheet"/>
+        <style>
+            body {
+                padding: 10px;
+                min-width: 357px;
+                min-height: 500px;
+                overflow-x: hidden;
+            }
+        </style>
+
+        <!--
+        - JavaScript and HTML must be in separate files: see our Content Security
+        - Policy documentation[1] for details and explanation.
+        -
+        - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
+        -->
+        <script src="jquery-2.0.0.min.js"></script>
+        <script src="popup1.js"></script>
+    </head>
+    <body>
+        <form class="form-search">
+            <input type="text" class="input-medium search-query" id="term">
+            <button type="submit" class="btn btn-small" id="btn-query">Search</button>
+        </form>
+        <p class="status"></p>
+
+
+
+    </body>
+</html>
+
