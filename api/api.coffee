@@ -5,6 +5,7 @@ _ = require 'lodash'
 
 db = mongojs 'directory'
 employees = db.collection 'employees'
+db_settings = db.collection 'settings'
 items_per_page = 40
 
 server = restify.createServer()
@@ -75,6 +76,16 @@ server.get '/snapshots.json', (req, res, next) ->
         data = _.map _.without(names, 'directory'), (item) -> item.replace('snapshot')
 
         res.send data
+
+server.get '/gnats/monitored-group.json', (req, res, next) ->
+    options = _id: 0
+
+    db_settings.find {type: 'gnats-monitor-group'}, options, (err, docs) ->
+        if docs.length == 1
+            res.send docs[0].value
+        else
+            res.send []
+
 
 server.listen 6080, ->
     console.log 'ready on %s', server.url
