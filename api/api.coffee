@@ -55,7 +55,10 @@ server.get '/groups/:name', (req, res, next) ->
         employees.find {manager: name}, options, (err, docs) ->
             if docs
                 data.total = docs.length
-                data.members = docs
+                if req.params.uid
+                    data.members = _.pluck docs, 'uid'
+                else
+                    data.members = docs
             res.send data
 
 server.get '/search.json', (req, res, next) ->
