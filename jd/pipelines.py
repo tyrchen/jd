@@ -9,6 +9,10 @@ client = MongoClient('localhost', 27017)
 db = client.directory
 employees = db['employees']
 
+special_employees = {
+    'tchen': 'Cliff Guo',
+}
+
 
 class MongoPipeline(object):
     def add_to_collection(self, col, employee):
@@ -19,8 +23,16 @@ class MongoPipeline(object):
         else:
             col.update({'uid': uid}, employee)
 
-    def process_item(self, item, spider):
+    def process_employee(self, item):
         employee = dict(item)
+        if 'uid' in special_employees:
+            employee['original_manager'] = employee['manager']
+            employee['manager'] = special_employees[employee['uid']]
+
+        return employee
+
+    def process_item(self, item, spider):
+        employee = self.process_employee(item)
         self.add_to_collection(employees, employee)
         self.add_to_collection(db['snapshot%s' % datetime.today().strftime('%Y%m%d')], employee)
         return item
