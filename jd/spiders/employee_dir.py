@@ -3,12 +3,16 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from jd.items import Employee
 from scrapy.selector import HtmlXPathSelector
 
+BASE_URL = "http://core.juniper.net/directory/details.asp?uid=%s"
+
 
 class DirectorySpider(CrawlSpider):
     name = 'directory'
     allowed_domains = ['core.juniper.net']
     start_urls = [
-        "http://core.juniper.net/directory/detail.asp?uid=jk",
+        BASE_URL % "jk",
+        BASE_URL % "josephp",
+        BASE_URL % "jwag"
     ]
 
     rules = (
