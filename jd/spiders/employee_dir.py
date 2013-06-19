@@ -3,7 +3,7 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from jd.items import Employee
 from scrapy.selector import HtmlXPathSelector
 
-BASE_URL = "http://core.juniper.net/directory/details.asp?uid=%s"
+BASE_URL = "http://core.juniper.net/directory/detail.asp?uid=%s"
 
 
 class DirectorySpider(CrawlSpider):
