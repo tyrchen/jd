@@ -10,9 +10,7 @@ class DirectorySpider(CrawlSpider):
     name = 'directory'
     allowed_domains = ['core.juniper.net']
     start_urls = [
-        BASE_URL % "jk",
-        BASE_URL % "josephp",
-        BASE_URL % "jwag"
+        BASE_URL % "djonathan",
     ]
 
     rules = (
